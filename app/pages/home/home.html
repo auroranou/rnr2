@@ -1,17 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <!--ion-title>Home</ion-title-->
+    <img class="header__image" src="build/images/train1.png">
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="home">
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>app/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+    <button (click)="openModal('start')">
+        Where are you now? 
+        <ion-icon name="search"></ion-icon>
+    </button>
+
+    <button (click)="openModal('end')">
+        Where are you going?
+        <ion-icon name="search"></ion-icon>
+    </button>
 </ion-content>
