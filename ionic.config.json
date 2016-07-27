@@ -2,5 +2,9 @@
   "name": "readNRide",
   "app_id": "",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "proxies": [{
+    "path": "/wmataApi",
+    "proxyUrl": "https://api.wmata.com"
+  }]
 }
