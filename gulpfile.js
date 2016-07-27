@@ -49,7 +49,7 @@ gulp.task('watch', ['clean'], function(done){
 
 gulp.task('build', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts', 'scripts', 'assets'],
     function(){
       buildBrowserify({
         minify: isRelease,
@@ -62,6 +62,11 @@ gulp.task('build', ['clean'], function(done){
       }).on('end', done);
     }
   );
+});
+
+gulp.task('assets', function() {
+    return gulp.src(["app/assets/images/*"])
+        .pipe(gulp.dest("www/build/images"));
 });
 
 gulp.task('sass', buildSass);
