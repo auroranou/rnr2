@@ -11,44 +11,58 @@ import { WMATA_API_KEY } from '../../providers/constants/constants';
 */
 @Injectable()
 export class StationsService {
-  data: any;
+    data: any;
     options: any;
     headers: any;
 
-  constructor(private http: Http) {
-    this.data = null;
-  }
-
-  load() {
-    if (this.data) {
-      // already loaded data
-      return Promise.resolve(this.data);
+    constructor(private http: Http) {
+        this.data = null;
     }
 
-    this.headers = new Headers();
-    this.headers.append("Content-Type", "application/json");
-    this.headers.append("api_key", WMATA_API_KEY);
+    load() {
+        if (this.data) {
+          // already loaded data
+          return Promise.resolve(this.data);
+        }
 
-    this.options = new RequestOptions({
-        method: RequestMethod.Get,
-        url: '/wmataApi' +  '/Rail.svc/json/jStations',
-        headers: this.headers
-    });
+        this.headers = new Headers();
+        this.headers.append("Content-Type", "application/json");
+        this.headers.append("api_key", WMATA_API_KEY);
 
-    // don't have the data yet
-    return new Promise(resolve => {
-      // We're using Angular Http provider to request the data,
-      // then on the response it'll map the JSON data to a parsed JS object.
-      // Next we process the data and resolve the promise with the new data.
-      this.http.request(new Request (this.options))
-        .map(res => res.json())
-        .subscribe(data => {
-          // we've got back the raw data, now generate the core schedule data
-          // and save the data for later reference
-          this.data = data;
-          resolve(this.data);
+        this.options = new RequestOptions({
+            method: RequestMethod.Get,
+            url: '/wmataApi' +  '/Rail.svc/json/jStations',
+            headers: this.headers
         });
-    });
-  }
+
+        return new Promise(resolve => {
+            this.http.request(new Request(this.options))
+            .map(res => res.json())
+            .subscribe(data => {
+                this.data = data;
+                resolve(this.data);
+            });
+        });
+    }
+
+    getNextTrain(stationCode) {
+        this.headers = new Headers();
+        this.headers.append("Content-Type", "application/json");
+        this.headers.append("api_key", WMATA_API_KEY);
+        
+        this.options = new RequestOptions({
+            method: RequestMethod.Get,
+            url: '/wmataApi' + `/StationPrediction.svc/json/GetPrediction/${stationCode}`,
+            headers: this.headers
+        });
+
+        return new Promise(resolve => {
+            this.http.request(new Request(this.options))
+            .map(res => res.json())
+            .subscribe(data => {
+                resolve(data);
+            });
+        });
+    }
 }
 
