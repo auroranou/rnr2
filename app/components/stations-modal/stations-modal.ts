@@ -3,7 +3,7 @@ import {Modal, NavController, NavParams, Platform, ViewController} from 'ionic-a
 import {StationsService} from '../../providers/stations-service/stations-service';
 
 @Component({
-    templateUrl: 'build/pages/home/stations.modal.html',
+    templateUrl: 'build/components/stations-modal/stations-modal.html',
     providers: [StationsService]
 })
 

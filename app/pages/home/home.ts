@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Modal, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
-import {StationsModal} from './components/stations-modal/stations-modal';
+import {StationsModal} from '../../components/stations-modal/stations-modal';
 import {StationsService} from '../../providers/stations-service/stations-service';
 
 @Component({
