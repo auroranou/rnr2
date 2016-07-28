@@ -23,21 +23,33 @@ export class HomePage {
         modal.onDismiss(data => {
             if (typeof data.station !== undefined && data.stationType === 'start') {
                 this.startStation = data.station;
-                this.getNextTrain(data.station.Code);
             } else if (typeof data.station !== undefined && data.stationType === 'end') {
                 this.endStation = data.station;
             }
-            console.log('returned data: ', data);
         });
 
         this.navCtrl.present(modal);
     }
 
-    getNextTrain(stationCode) {
-        this.stationsSvc.getNextTrain(stationCode)
+    runTripQuery() {
+        if (!this.startStation || !this.endStation) {
+            return;
+        }
+
+        let start = this.startStation.Code;
+        let end = this.endStation.Code;
+        let tripTime = `The next train from ${this.startStation.Name} leaves `;
+ 
+        this.stationsSvc.getNextTrain(start)
         .then(data => {
-            console.log(data);
+            if (data["Trains"].length && data["Trains"][0].Min) {
+                tripTime += data["Trains"][0].Min === 'BRD' ? 'now' : `in ${data["Trains"][0].Min} minutes`;
+           }
+
+            return this.stationsSvc.getTripInformation(start, end);
+        }).then(data => {
+            tripTime += ` and will take ${data["StationToStationInfos"][0].RailTime} minutes to reach ${this.endStation.Name}.`;
+            console.log(tripTime);
         });
     }
 }
-

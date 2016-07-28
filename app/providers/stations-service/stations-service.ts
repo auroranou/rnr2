@@ -17,17 +17,16 @@ export class StationsService {
 
     constructor(private http: Http) {
         this.data = null;
-    }
-
-    load() {
-        if (this.data) {
-          // already loaded data
-          return Promise.resolve(this.data);
-        }
 
         this.headers = new Headers();
         this.headers.append("Content-Type", "application/json");
         this.headers.append("api_key", WMATA_API_KEY);
+    }
+
+    load() {
+        if (this.data) {
+          return Promise.resolve(this.data);
+        }
 
         this.options = new RequestOptions({
             method: RequestMethod.Get,
@@ -46,10 +45,6 @@ export class StationsService {
     }
 
     getNextTrain(stationCode) {
-        this.headers = new Headers();
-        this.headers.append("Content-Type", "application/json");
-        this.headers.append("api_key", WMATA_API_KEY);
-        
         this.options = new RequestOptions({
             method: RequestMethod.Get,
             url: '/wmataApi' + `/StationPrediction.svc/json/GetPrediction/${stationCode}`,
@@ -64,5 +59,21 @@ export class StationsService {
             });
         });
     }
+
+    getTripInformation(startStation, endStation) {
+        this.options = new RequestOptions({
+            method: RequestMethod.Get,
+            url: '/wmataApi' + `/Rail.svc/json/jSrcStationToDstStationInfo?FromStationCode=${startStation}&ToStationCode=${endStation}`,
+            headers: this.headers
+        });
+
+        return new Promise(resolve => {
+            this.http.request(new Request(this.options))
+            .map(res => res.json())
+            .subscribe(data => {
+                resolve(data);
+            });
+        });
+    }    
 }
 
