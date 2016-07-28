@@ -36,6 +36,10 @@ export class HomePage {
             return;
         }
 
+        if (this.startStation.Name === this.endStation.Name) {
+            return;
+        }
+
         let start = this.startStation.Code;
         let end = this.endStation.Code;
         let tripTime = `The next train from ${this.startStation.Name} leaves `;

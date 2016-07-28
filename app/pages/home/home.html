@@ -6,17 +6,36 @@
 </ion-header>
 
 <ion-content padding class="home">
-    <button (click)="openModal('start')">
-        Where are you now? 
-        <ion-icon name="search"></ion-icon>
-    </button>
+    <div class="home__buttons-container">
+        <div class="home__buttons">
+            <button *ngIf="!startStation"
+                (click)="openModal('start')">
+                Where are you now? 
+                <ion-icon name="search"></ion-icon>
+            </button>
 
-    <button (click)="openModal('end')">
-        Where are you going?
-        <ion-icon name="search"></ion-icon>
-    </button>
+            <button outline *ngIf="startStation"
+                (click)="openModal('start')">
+                {{ startStation.Name }}
+                <ion-icon name="create"></ion-icon>
+            </button>
 
-    <button secondary (click)="runTripQuery()">
-        Find me things to read
-    </button>
+            <button *ngIf="!endStation"
+                (click)="openModal('end')">
+                Where are you going?
+                <ion-icon name="search"></ion-icon>
+            </button>
+
+            <button outline *ngIf="endStation"
+                (click)="openModal('start')">
+                {{ endStation.Name }}
+                <ion-icon name="create"></ion-icon>
+            </button>
+        </div>
+
+        <button secondary [disabled]="!startStation && !endStation"
+            (click)="runTripQuery()">
+            Find me things to read
+        </button>
+    </div>
 </ion-content>
