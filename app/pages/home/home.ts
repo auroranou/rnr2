@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Modal, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
 import {StationsModal} from '../../components/stations-modal/stations-modal';
 import {StationsService} from '../../providers/stations-service/stations-service';
+import {ArticlesPage} from '../articles/articles';
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
@@ -42,18 +43,29 @@ export class HomePage {
 
         let start = this.startStation.Code;
         let end = this.endStation.Code;
-        let tripTime = `The next train from ${this.startStation.Name} leaves `;
+        let tripMessage = `The next train from ${this.startStation.Name} leaves `;
+        let tripTime = 0;
  
         this.stationsSvc.getNextTrain(start)
         .then(data => {
             if (data["Trains"].length && data["Trains"][0].Min) {
-                tripTime += data["Trains"][0].Min === 'BRD' ? 'now' : `in ${data["Trains"][0].Min} minutes`;
+              if (data["Trains"][0].Min === 'BRD') {
+                tripMessage += 'now'
+              } else {
+                tripMessage += `in ${+data["Trains"][0].Min} minutes`;
+                tripTime += +data["Trains"][0].Min;
+              }
            }
 
             return this.stationsSvc.getTripInformation(start, end);
         }).then(data => {
-            tripTime += ` and will take ${data["StationToStationInfos"][0].RailTime} minutes to reach ${this.endStation.Name}.`;
-            console.log(tripTime);
+            tripMessage += ` and will take ${data["StationToStationInfos"][0].RailTime} minutes to reach ${this.endStation.Name}.`;
+            tripTime += +data["StationToStationInfos"][0].RailTime;
+
+            this.navCtrl.push(ArticlesPage, {
+                tripMessage: tripMessage,
+                tripTime: tripTime
+            }); 
         });
     }
 }
