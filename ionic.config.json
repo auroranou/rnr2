@@ -6,5 +6,8 @@
   "proxies": [{
     "path": "/wmataApi",
     "proxyUrl": "https://api.wmata.com"
+  }, {
+    "path": "/longreadsApi",
+    "proxyUrl": "https://longreads-api.herokuapp.com"
   }]
 }
