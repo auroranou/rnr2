@@ -32,6 +32,11 @@ export class HomePage {
         this.navCtrl.present(modal);
     }
 
+    clearInputs() {
+        this.startStation = null;
+        this.endStation = null; 
+    }
+
     runTripQuery() {
         if (!this.startStation || !this.endStation) {
             return;
