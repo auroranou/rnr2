@@ -1,3 +1,9 @@
+.station__spinner {
+  display: block;
+  margin: 50% auto;
+  text-align: center;
+}
+
 .station__color {
   border-radius: 50%;
   display: inline-block;
@@ -26,7 +32,7 @@
   }
 
   &--gray {
-    background-color: #f4f4f4;
+    background-color: #d0d0d0;
   }
 
   &--yellow {

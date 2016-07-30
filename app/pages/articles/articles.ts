@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { Loading, NavController, NavParams, Platform } from 'ionic-angular';
 import { ArticlesService } from '../../providers/articles-service/articles-service';
 
 /*
@@ -12,6 +12,7 @@ import { ArticlesService } from '../../providers/articles-service/articles-servi
   templateUrl: 'build/pages/articles/articles.html',
   providers: [ArticlesService]
 })
+
 export class ArticlesPage {
     public tripMessage: any;
     public tripTime: any;
@@ -32,9 +33,21 @@ export class ArticlesPage {
   }
 
   getArticles() {
+    let loading = Loading.create({
+      content: `
+        <div class="article__spinner">
+          <img src="build/images/train1.png">
+        </div>
+      `,
+      spinner: 'hide'
+    });
+
+    this.nav.present(loading);
+
     this.articlesSvc.getArticles(this.tripTime)
     .then(data => {
       // TO DO: Randomly select 5 articles before binding to this
+      loading.dismiss();
       this.articles = data;
     });
   }
