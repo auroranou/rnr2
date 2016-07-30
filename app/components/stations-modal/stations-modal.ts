@@ -8,18 +8,27 @@ import {StationsService} from '../../providers/stations-service/stations-service
 })
 
 export class StationsModal {
+    public colorsMap: any;
     public stationType: any;
     public stations: any;
     public station: any;
 
     constructor(
-        public platform: Platform,
         public params: NavParams,
+        public platform: Platform,
         public stationsSvc: StationsService,
         public viewCtrl: ViewController 
     ) {
         // stationType is either "start" or "end"
         this.stationType = this.params.get("type");
+        this.colorsMap = {
+          "BL": "blue",
+          "GR": "green",
+          "OR": "orange",
+          "RD": "red",
+          "SV": "gray",
+          "YL": "yellow" 
+        };
 
         this.loadStations();
     }
@@ -27,7 +36,7 @@ export class StationsModal {
     loadStations() {
         this.stationsSvc.load()
         .then(data => {
-            this.stations = data.Stations;
+            this.stations = data;
         });
     }
 

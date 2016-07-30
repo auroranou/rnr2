@@ -1,0 +1,35 @@
+.station__color {
+  border-radius: 50%;
+  display: inline-block;
+  height: 1rem;
+  margin-right: 0.5rem;
+  width: 1rem;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &--blue {
+    background-color: #387ef5;
+  }
+
+  &--green { 
+    background-color: #32db64;
+  }
+
+  &--orange {
+    background-color: #ffb332;
+  }
+
+  &--red {
+    background-color: #f53d3d;
+  }
+
+  &--gray {
+    background-color: #f4f4f4;
+  }
+
+  &--yellow {
+    background-color: #fff832;
+  }
+}

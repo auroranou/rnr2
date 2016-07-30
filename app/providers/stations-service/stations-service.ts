@@ -24,6 +24,21 @@ export class StationsService {
     }
 
     load() {
+        function sortStations(arr) {
+          return arr.map(el => {
+            el.Lines = [];
+            el.Lines.push(el.LineCode1);
+            if (el.LineCode2) el.Lines.push(el.LineCode2);
+            if (el.LineCode3) el.Lines.push(el.LineCode3);
+            if (el.LineCode4) el.Lines.push(el.LineCode4);
+            return el;
+          }).sort((a, b) => {
+            if (a.Name < b.Name) return -1;
+            else if (b.Name < a.Name) return 1;
+            else return 0;
+          }); 
+        }
+
         if (this.data) {
           return Promise.resolve(this.data);
         }
@@ -38,7 +53,8 @@ export class StationsService {
             this.http.request(new Request(this.options))
             .map(res => res.json())
             .subscribe(data => {
-                this.data = data;
+                this.data = sortStations(data.Stations);
+                console.log(this.data);
                 resolve(this.data);
             });
         });

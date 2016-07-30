@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar primary>
     <ion-title>
-      Description
+      Find a station
     </ion-title>
     <ion-buttons start>
       <button (click)="closeModal()">
@@ -17,6 +17,7 @@
     <ion-list>
         <ion-item *ngFor="let station of stations" (click)="setStation(station)">
             {{ station.Name }}
+            <span *ngFor="let line of station.Lines" class="station__color station__color--{{ colorsMap[line] }}"></span>
         </ion-item>
     </ion-list>
 </ion-content>
