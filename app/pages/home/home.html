@@ -1,41 +1,42 @@
 <ion-header>
   <ion-navbar>
-    <!--ion-title>Home</ion-title-->
-    <img class="header__image" src="build/images/train1.png">
+    <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="home">
-    <div class="home__buttons-container">
-        <div class="home__buttons">
-            <button *ngIf="!startStation"
-                (click)="openModal('start')">
-                Where are you now? 
-                <ion-icon name="search"></ion-icon>
-            </button>
-
-            <button outline *ngIf="startStation"
-                (click)="openModal('start')">
-                {{ startStation.Name }}
-                <ion-icon name="create"></ion-icon>
-            </button>
-
-            <button *ngIf="!endStation"
-                (click)="openModal('end')">
-                Where are you going?
-                <ion-icon name="search"></ion-icon>
-            </button>
-
-            <button outline *ngIf="endStation"
-                (click)="openModal('end')">
-                {{ endStation.Name }}
-                <ion-icon name="create"></ion-icon>
-            </button>
-        </div>
-
-        <button secondary [disabled]="!startStation && !endStation"
-            (click)="runTripQuery()">
-            Find me things to read
+      <button outline class="home__button"
+          *ngIf="!startStation"
+          (click)="openModal('start')">
+              <span>Where are you now?</span>
+              <ion-icon name="search"></ion-icon>
         </button>
-    </div>
+
+        <button outline class="home__button"
+            *ngIf="startStation"
+            (click)="openModal('start')">
+              <span>{{ startStation.Name }}</span>
+              <ion-icon name="create"></ion-icon>
+        </button>
+
+        <button outline class="home__button"
+            *ngIf="!endStation"
+            (click)="openModal('end')">
+              <span>Where are you going?</span>
+              <ion-icon name="search"></ion-icon>
+        </button>
+
+        <button outline class="home__button"
+            *ngIf="endStation"
+            (click)="openModal('end')">
+              <span>{{ endStation.Name }}</span>
+              <ion-icon name="create"></ion-icon>
+        </button>
+
+        <button secondary class="home__button home__button--submit"
+            [disabled]="!startStation && !endStation"
+            (click)="runTripQuery()">
+              <span>Find me some things to read</span>
+              <ion-icon name="arrow-forward"></ion-icon>
+        </button>
 </ion-content>

@@ -51,7 +51,7 @@ export class HomePage {
             if (data["Trains"].length && data["Trains"][0].Min) {
               if (data["Trains"][0].Min === 'BRD') {
                 tripMessage += 'now'
-              } else {
+              } else if (!isNaN(data["Trains"][0].Min)) {
                 tripMessage += `in ${+data["Trains"][0].Min} minutes`;
                 tripTime += +data["Trains"][0].Min;
               }

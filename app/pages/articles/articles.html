@@ -13,11 +13,11 @@
 </ion-header>
 
 
-<ion-content padding>
-  <h2>{{ tripMessage }}</h2>
-  <p>
+<ion-content>
+  <h2 padding>{{ tripMessage }}</h2>
+  <h3 padding>
     Here are some things you can read in {{ tripTime }} minutes:
-  </p>
+  </h3>
   <ion-list text-wrap>
     <ion-item *ngFor="let article of articles">
       <a href="{{ article.articleUrl }}">
@@ -25,7 +25,7 @@
       </a>
       <br>
       {{ article.author }}, <em>{{ article.source }}</em> ({{ article.pubDate }})<br>
-      {{ article.wordLength }} words | {{ article.minuteLength }} minutes to read 
+      {{ article.wordLength }} | {{ article.minuteLength }} minutes to read 
     </ion-item>
   </ion-list>
 </ion-content>
